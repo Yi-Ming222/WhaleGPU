@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPU Playground · 并行计算实验室</title>
+<link rel="stylesheet" href="/style.css">
+<script defer src="/app.js"></script>
+</head>
+<body>
+<header class="top"><div class="brand"><span class="logo" aria-hidden="true">▦</span><span>GPU <b>Playground</b><small>PARALLEL COMPUTING LAB</small></span></div><div class="top-right"><button id="gpu">运行真实 GPU Map</button><button id="level" aria-pressed="false">初学者模式</button></div></header>
+<div class="layout">
+<aside>
+<div class="eyebrow">WORKSPACE / 实验目录</div>
+<nav id="nav" aria-label="实验目录"></nav>
+<form id="settings">
+<div class="eyebrow">CONFIG / 实验参数</div>
+<div class="fields">
+<label id="block-label" title="Block 是一组可以共享内存并同步的线程">Block 数<input id="blocks" type="number" min="1" max="8" required></label>
+<label title="线程是执行同一段 Kernel 程序的基本单位">每块线程<input id="threads" type="number" min="1" max="64" required></label>
+<label id="length-label">数组长度<input id="length" type="number" min="0" max="1024" required></label>
+</div>
+<label id="value-label">输入数组<textarea id="values" rows="2" placeholder="整数，用逗号或空格分隔"></textarea></label>
+<label id="pairing-label">配对方式<select id="pairing"><option value="halves">跨半区（原始轨迹）</option><option value="adjacent">相邻子树</option></select></label>
+<label id="step-label">索引增量<select id="step"><option value="grid">i += stride</option><option value="unit">i += 1</option></select></label>
+<label id="schedule-label">模拟调度<select id="schedule"><option value="overlap">先全部读取，再写回</option><option value="serial">逐线程完成更新</option></select></label>
+<div class="form-actions"><button class="primary" type="submit">应用参数</button><button id="reset" type="button">重置</button></div>
+<div id="error" role="alert"></div>
+</form>
+</aside>
+<main>
+<div id="hero"></div>
+<div class="workspace">
+<section class="panel" aria-label="实验画布">
+<div class="panel-head"><div><span class="eyebrow" id="visual-label">LIVE WORKBENCH</span><h2>实验画布</h2></div><span class="chip" id="stage"></span></div>
+<div id="canvas"></div>
+</section>
+<section class="panel inspect" aria-label="步骤与线程详情">
+<div class="panel-head"><div><span class="eyebrow">INSPECTOR</span><h2>步骤与详情</h2></div><span class="chip" id="counter"></span></div>
+<div id="detail" aria-live="polite"></div>
+<div id="selection"></div>
+</section>
+</div>
+<section class="panel transport" aria-label="播放控制">
+<div class="controls"><button id="back" title="上一步" aria-label="上一步">◀</button><button id="play" class="primary">▶ 自动播放</button><button id="next" title="下一步" aria-label="下一步">▶</button><select id="speed" aria-label="播放速度"><option value="1500">0.5×</option><option value="750" selected>1×</option><option value="375">2×</option></select><span class="time" id="position"></span></div>
+<input type="range" id="timeline" aria-label="执行进度" min="0" max="0" value="0">
+</section>
+</main>
+</div>
+<dialog id="map-dialog"><div class="panel-head"><h2>真实 GPU Map 检查</h2><form method="dialog"><button aria-label="关闭">×</button></form></div><div id="map-result" aria-live="polite"></div></dialog>
+</body>
+</html>

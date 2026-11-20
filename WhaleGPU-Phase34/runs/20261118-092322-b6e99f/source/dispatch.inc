@@ -1,0 +1,16 @@
+if(name=="T16_R1_row") return {false,launch_register<16,1,false>,inspect_register<16,1,false>};
+if(name=="T16_R1_column") return {false,launch_register<16,1,true>,inspect_register<16,1,true>};
+if(name=="T16_R2_row") return {false,launch_register<16,2,false>,inspect_register<16,2,false>};
+if(name=="T16_R2_column") return {false,launch_register<16,2,true>,inspect_register<16,2,true>};
+if(name=="T16_R4_row") return {false,launch_register<16,4,false>,inspect_register<16,4,false>};
+if(name=="T16_R4_column") return {false,launch_register<16,4,true>,inspect_register<16,4,true>};
+if(name=="T32_R1_row") return {false,launch_register<32,1,false>,inspect_register<32,1,false>};
+if(name=="T32_R1_column") return {false,launch_register<32,1,true>,inspect_register<32,1,true>};
+if(name=="T32_R2_row") return {false,launch_register<32,2,false>,inspect_register<32,2,false>};
+if(name=="T32_R2_column") return {false,launch_register<32,2,true>,inspect_register<32,2,true>};
+if(name=="T32_R4_row") return {false,launch_register<32,4,false>,inspect_register<32,4,false>};
+if(name=="T32_R4_column") return {false,launch_register<32,4,true>,inspect_register<32,4,true>};
+if(name=="T64_R2_row") return {false,launch_register<64,2,false>,inspect_register<64,2,false>};
+if(name=="T64_R2_column") return {false,launch_register<64,2,true>,inspect_register<64,2,true>};
+if(name=="T64_R4_row") return {false,launch_register<64,4,false>,inspect_register<64,4,false>};
+if(name=="T64_R4_column") return {false,launch_register<64,4,true>,inspect_register<64,4,true>};

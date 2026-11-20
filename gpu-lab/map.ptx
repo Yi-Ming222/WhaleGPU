@@ -1,0 +1,30 @@
+.version 9.0
+.target sm_120
+.address_size 64
+
+.visible .entry map_double(
+    .param .u64 src,
+    .param .u64 dst,
+    .param .u32 count
+)
+{
+    .reg .pred %outside;
+    .reg .u32 %lane, %n, %value;
+    .reg .u64 %src, %dst, %offset;
+
+    mov.u32 %lane, %tid.x;
+    ld.param.u32 %n, [count];
+    setp.ge.u32 %outside, %lane, %n;
+    @%outside bra DONE;
+
+    ld.param.u64 %src, [src];
+    ld.param.u64 %dst, [dst];
+    mul.wide.u32 %offset, %lane, 4;
+    add.u64 %src, %src, %offset;
+    add.u64 %dst, %dst, %offset;
+    ld.global.u32 %value, [%src];
+    shl.b32 %value, %value, 1;
+    st.global.u32 [%dst], %value;
+DONE:
+    ret;
+}
